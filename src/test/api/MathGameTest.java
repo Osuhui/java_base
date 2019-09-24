@@ -4,8 +4,7 @@
  */
 package test.api;
 
-import base.api.ScanApi;
-import base.api.SortApi;
+import base.api.MathGamenApi;
 
 /**
  * <h3>
@@ -19,20 +18,18 @@ import base.api.SortApi;
  *    メモ。
  * </pre>
  */
-public class SortTest {
+public class MathGameTest {
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 
-		// 控制台输入多个数字
-		ScanApi scnApi = new ScanApi();
-		int[] a = scnApi.scanInt();
+		int num = 200;
 
-		// 排序
-		SortApi sortApi = new SortApi();
-		sortApi.selectSort(a);
+		// 输出num以内的素数
+		MathGamenApi prime = new MathGamenApi();
+		prime.outPrime(num);
 
 	}
 

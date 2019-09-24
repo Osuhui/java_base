@@ -25,7 +25,7 @@ public class ScanApi {
 	 */
 	public int[] scanInt() {
 
-		System.out.println("请输入需要输入数字的个数：");
+		System.out.print("请输入需要输入数字的个数：");
 		Scanner sc = new Scanner(System.in);
 		int num = sc.nextInt();
 
@@ -40,4 +40,29 @@ public class ScanApi {
 		return a;
 	}
 
+	/**
+	 * 输入一个字符串数组
+	 * @return
+	 */
+	public String[] scanStr() {
+
+		final int ARR_MAX_LENGTH = 100;
+
+		System.out.print("请输入字符串：");
+		Scanner sc = new Scanner(System.in);
+
+		sc.nextLine();
+		String[] strArr = new String[ARR_MAX_LENGTH];
+
+		int index = 0;
+		while (sc.hasNextLine()) {
+
+			strArr[index] = sc.nextLine();
+			index++;
+		}
+
+		sc.close();
+		return strArr;
+
+	}
 }

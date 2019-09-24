@@ -5,7 +5,6 @@
 package test.api;
 
 import base.api.ScanApi;
-import base.api.SortApi;
 
 /**
  * <h3>
@@ -19,20 +18,15 @@ import base.api.SortApi;
  *    メモ。
  * </pre>
  */
-public class SortTest {
+public class OperatorTest {
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 
-		// 控制台输入多个数字
-		ScanApi scnApi = new ScanApi();
-		int[] a = scnApi.scanInt();
-
-		// 排序
-		SortApi sortApi = new SortApi();
-		sortApi.selectSort(a);
+		ScanApi scanApi = new ScanApi();
+		scanApi.scanStr();
 
 	}
 
