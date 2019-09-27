@@ -25,12 +25,23 @@ public class MathGameTest {
 	 */
 	public static void main(String[] args) {
 
-		int num = 200;
+		int num = 100;
 
 		// 输出num以内的素数
-		MathGamenApi prime = new MathGamenApi();
-		prime.outPrime(num);
+		MathGamenApi mathGamenApi = new MathGamenApi();
+		mathGamenApi.outPrime(num);
 
+		// 结束外部循环标签使用
+		mathGamenApi.outOddNumber();
+
+		// 黄金分割点
+		mathGamenApi.goldPoint();
+
+		// 所有的水仙花数
+		mathGamenApi.Daffodil();
+
+		//求解一个4元一次方程
+		mathGamenApi.resolveEquation();
 	}
 
 }
