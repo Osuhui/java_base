@@ -4,27 +4,21 @@
  */
 package test.api;
 
+import org.junit.Test;
+
 import base.api.ScanApi;
 import base.api.SortApi;
 
 /**
- * <h3>
- * Test
- * </h3>
- * Test.java
+ * 
  * @author huiweilong
  * @since 2019/05/24
- * <pre>
- * <b>&lt;メモ&gt;</b>
- *    メモ。
- * </pre>
+ * 
  */
 public class SortTest {
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
+	@Test
+	public void test01() {
 
 		// 控制台输入多个数字
 		ScanApi scnApi = new ScanApi();

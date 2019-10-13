@@ -4,26 +4,20 @@
  */
 package test.api;
 
+import org.junit.Test;
+
 import base.api.ScanApi;
 
 /**
- * <h3>
- * Test
- * </h3>
- * Test.java
+ * 
  * @author huiweilong
  * @since 2019/05/24
- * <pre>
- * <b>&lt;メモ&gt;</b>
- *    メモ。
- * </pre>
+ * 
  */
 public class OperatorTest {
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
+	@Test
+	public void test01() {
 
 		ScanApi scanApi = new ScanApi();
 		scanApi.scanStr();
