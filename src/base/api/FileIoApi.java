@@ -81,4 +81,52 @@ public class FileIoApi {
 		}
 	}
 
+	private static List<File> fileList = new ArrayList<File>();
+
+	/**
+	 * 遍历路径下的所有文件
+	 *
+	 * @param path
+	 * @return
+	 */
+	public List<File> traverFile(String path) {
+
+		File file = new File(path);
+
+		// 判断文件是否存在
+		if (file.exists()) {
+
+			// 判断是否为文件夹
+			if (file.isDirectory()) {
+
+				// 当前路径下的所有文件(包含文件夹)
+				File[] childFiles = file.listFiles();
+
+				if (null != childFiles) {
+
+					for (File childFile : childFiles) {
+
+						if (childFile.isDirectory()) {
+
+							traverFile(childFile.getAbsolutePath());
+
+						} else {
+
+							fileList.add(childFile);
+						}
+
+					}
+
+				}
+
+			} else {
+				fileList.add(file);
+			}
+
+		} else {
+			System.out.println("文件不存在!");
+		}
+		return fileList;
+
+	}
 }
