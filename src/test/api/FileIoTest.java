@@ -36,6 +36,7 @@ class FileIoTest {
 	@Test
 	void test01() {
 
+		// 读取key值
 		String path = "resources/files/key.txt";
 		List<String> keyList = fileIoApi.readKey(path);
 		System.out.println(keyList);
@@ -45,14 +46,47 @@ class FileIoTest {
 	@Test
 	void test02() {
 
-		String path = "resources/files/key.txt";
+		// 遍历文件
+		String path = "src/test";
 		List<File> files = fileIoApi.traverFile(path);
 
-		System.out.println(files.size());
+		System.out.println("文件数量：" + files.size());
 		for (File file : files) {
-			System.out.println(file);
+			System.out.println("文件：" + file);
 		}
 
+	}
+
+	@Test
+	void test03() {
+
+		// 字节流文件读写
+		String path = "resources/files/byteFile.txt";
+		byte[] data = { 100, 10, 20 };
+		fileIoApi.byteWrite(path, data);
+		fileIoApi.byteRead(path);
+
+	}
+
+	@Test
+	void test04() {
+
+		// 缓存流文件读写 输出ASCII表
+		String path = "resources/files/asciiFile.txt";
+
+		fileIoApi.outputAscII(path);
+		List<String[]> dataList = fileIoApi.bufferRead(path);
+
+		for (String[] dataArray : dataList) {
+
+			for (int i = 0; i < dataArray.length; i++) {
+
+				if (i % dataArray.length == 0) {
+					System.out.println();
+				}
+				System.out.print("\t" + dataArray[i]);
+			}
+		}
 	}
 
 }
