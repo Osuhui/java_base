@@ -2,11 +2,11 @@
  * Copyright (c) 2019 RECRUIT Co.,Ltd. All Rights Reserved.
  * システム名     : じゃらんnetシステム
  */
-package test.api;
+package test.utils;
 
 import org.junit.Test;
 
-import base.api.MathGamenApi;
+import base.utils.MathGameUtil;
 
 /**
  * 
@@ -17,7 +17,7 @@ import base.api.MathGamenApi;
  */
 public class MathGameTest {
 
-	MathGamenApi mathGamenApi = new MathGamenApi();
+	MathGameUtil mathGamenApi = new MathGameUtil();
 
 	@Test
 	public void test01() {

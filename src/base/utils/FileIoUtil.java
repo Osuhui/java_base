@@ -1,4 +1,4 @@
-package base.api;
+package base.utils;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileIoApi {
+public class FileIoUtil {
 
 	/**
 	 * 将ASCII表输出到文件

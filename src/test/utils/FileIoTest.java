@@ -1,15 +1,15 @@
-package test.api;
+package test.utils;
 
 import java.io.File;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import base.api.FileIoApi;
+import base.utils.FileIoUtil;
 
 class FileIoTest {
 
-	FileIoApi fileIoApi = new FileIoApi();
+	FileIoUtil fileIoApi = new FileIoUtil();
 
 	@Test
 	void test00() {

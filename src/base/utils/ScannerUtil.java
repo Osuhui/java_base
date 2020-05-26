@@ -2,7 +2,7 @@
  * Copyright (c) 2019 RECRUIT Co.,Ltd. All Rights Reserved.
  * システム名     : じゃらんnetシステム
  */
-package base.api;
+package base.utils;
 
 import java.util.Scanner;
 
@@ -18,7 +18,7 @@ import java.util.Scanner;
  *    メモ。
  * </pre>
  */
-public class ScanApi {
+public class ScannerUtil {
 
 	/**
 	 * 输入数字

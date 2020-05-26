@@ -2,12 +2,12 @@
  * Copyright (c) 2019 RECRUIT Co.,Ltd. All Rights Reserved.
  * システム名     : じゃらんnetシステム
  */
-package test.api;
+package test.utils;
 
 import org.junit.Test;
 
-import base.api.ScanApi;
-import base.api.SortApi;
+import base.utils.ScannerUtil;
+import base.utils.SortUtil;
 
 /**
  * 
@@ -21,11 +21,11 @@ public class SortTest {
 	public void test01() {
 
 		// 控制台输入多个数字
-		ScanApi scnApi = new ScanApi();
+		ScannerUtil scnApi = new ScannerUtil();
 		int[] a = scnApi.scanInt();
 
 		// 排序
-		SortApi sortApi = new SortApi();
+		SortUtil sortApi = new SortUtil();
 		sortApi.selectSort(a);
 
 	}

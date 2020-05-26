@@ -2,7 +2,7 @@
  * Copyright (c) 2019 RECRUIT Co.,Ltd. All Rights Reserved.
  * システム名     : じゃらんnetシステム
  */
-package base.api;
+package base.utils;
 
 /**
  * <h3>
@@ -16,7 +16,7 @@ package base.api;
  *    メモ。
  * </pre>
  */
-public class MathGamenApi {
+public class MathGameUtil {
 
 	/**
 	 *输出1-100之间的素数
