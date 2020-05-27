@@ -1,15 +1,19 @@
 package base.utils;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Enumeration;
 import java.util.zip.CRC32;
 import java.util.zip.CheckedOutputStream;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
 public class ZipFileUtil {
@@ -84,6 +88,40 @@ public class ZipFileUtil {
 				zipOutputStream.write(buffer, 0, readLen);
 			}
 			bis.close();
+		}
+	}
+
+	/**
+	 * 解压
+	 *
+	 * @param zipPath
+	 * @param filePath
+	 */
+	public void deCompress(String zipPath, String filePath) {
+		try (ZipFile zipFile = new ZipFile(zipPath);) {
+			for (Enumeration<?> enumeration = zipFile.entries(); enumeration.hasMoreElements();) {
+				// 获取zip中的元素
+				ZipEntry zipEntry = (ZipEntry) enumeration.nextElement();
+				File file = new File(filePath + zipEntry.getName());
+				if (!zipEntry.getName().endsWith(File.separator)) {
+
+					InputStream is = zipFile.getInputStream(zipEntry);
+					BufferedInputStream bis = new BufferedInputStream(is);
+					BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
+					int readLen = 0;
+					byte[] buffer = new byte[BUFFER_SIZE];
+					while ((readLen = bis.read(buffer)) != -1) {
+						bos.write(buffer, 0, readLen);
+					}
+					bos.close();
+					bis.close();
+
+				} else {
+					file.mkdirs();
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 

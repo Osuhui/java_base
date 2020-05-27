@@ -59,4 +59,11 @@ public class ZipTest {
 
 	}
 
+	@Test
+	public void test03() {
+		String zipPath = "resources/files.zip";
+		String filePath = "resources/zip/";
+		zipFileApi.deCompress(zipPath, filePath);
+	}
+
 }
