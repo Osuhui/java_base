@@ -18,9 +18,9 @@ import java.util.zip.ZipOutputStream;
 
 public class ZipFileUtil {
 
-	private static final String decimalPoint = ".";
+	private static final String DECIMAL_POINT = ".";
 
-	private static final String zipSuffix = ".zip";
+	private static final String ZIP_SUFFIX = ".zip";
 
 	private static final int BUFFER_SIZE = 2 * 1024;
 
@@ -35,13 +35,13 @@ public class ZipFileUtil {
 
 		// 压缩后的文件路径
 		String zipPath = file.isDirectory() ? file.getPath()
-				: file.getPath().substring(0, file.getPath().indexOf(decimalPoint));
+				: file.getPath().substring(0, file.getPath().indexOf(DECIMAL_POINT));
 //		File zipFile = new File(zipPath + zipSuffix);
 //		if (zipFile.exists()) {
 //			FileAlreadyExistsException e = new FileAlreadyExistsException(zipPath);
 //			e.printStackTrace();
 //		}
-		try (OutputStream outputStream = new FileOutputStream(zipPath + zipSuffix);
+		try (OutputStream outputStream = new FileOutputStream(zipPath + ZIP_SUFFIX);
 				// 检查输出流,采用CRC32算法，保证文件的一致性
 				CheckedOutputStream checkedOutputStream = new CheckedOutputStream(outputStream, new CRC32());
 				// 创建zip文件的输出流
@@ -62,7 +62,7 @@ public class ZipFileUtil {
 	public void zipCreate(String filePath) {
 		File file = new File(filePath);
 		zipCreate(filePath, file.isDirectory() ? file.getName()
-				: file.getName().substring(0, file.getName().indexOf(decimalPoint)));
+				: file.getName().substring(0, file.getName().indexOf(DECIMAL_POINT)));
 	}
 
 	/**
