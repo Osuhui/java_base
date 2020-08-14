@@ -47,7 +47,7 @@ class FileIoTest {
 	void test02() {
 
 		// 遍历文件
-		String path = "src/test";
+		String path = "src/aa";
 		List<File> files = fileIoApi.traverFile(path);
 
 		System.out.println("文件数量：" + files.size());
@@ -87,6 +87,34 @@ class FileIoTest {
 				System.out.print("\t" + dataArray[i]);
 			}
 		}
+	}
+
+	@Test
+	void test05() {
+
+		String fileName = "resources/files/serialize";
+		String obj = "123\n456";
+
+		// 序列化输出
+		fileIoApi.serialize(obj, fileName);
+
+		// 反序列化读取
+		Object resultObj = fileIoApi.deSerialize(fileName);
+		System.out.println(resultObj);
+	}
+
+	@Test
+	void test06() {
+
+		String fileName = "resources/files/demo.xml";
+
+		System.out.println(fileIoApi.BufferReadToString(fileName));
+
+		// DOM方式读取XML
+		fileIoApi.readXmlForDom(fileName);
+
+		// SAX方式读取XML
+		fileIoApi.readXmlForSAX(fileName);
 	}
 
 }

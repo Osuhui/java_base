@@ -29,8 +29,8 @@ public class ScannerUtil {
 		Scanner sc = new Scanner(System.in);
 		int num = sc.nextInt();
 
-		int a[] = new int[num];
-		System.out.printf("请输入%d个数字:\n", num);
+		int[] a = new int[num];
+		System.out.printf("请输入%d个数字:%n", num);
 
 		for (int i = 0; i < num; i++) {
 			a[i] = sc.nextInt();
