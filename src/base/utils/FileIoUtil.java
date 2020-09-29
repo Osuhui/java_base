@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -19,6 +18,9 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -29,12 +31,112 @@ import org.xml.sax.helpers.DefaultHandler;
 
 public class FileIoUtil {
 
+	private static List<File> fileList = new ArrayList<>();
+
+	/**
+	 * 遍历路径下的所有文件
+	 *
+	 * @param path
+	 * @return
+	 */
+	public List<File> traverFile(String path) {
+
+		File file = new File(path);
+
+		// 判断文件是否存在
+		if (!file.exists()) {
+			return fileList;
+		}
+
+		// 判断是否为文件
+		if (file.isFile()) {
+			fileList.add(file);
+		} else {
+			// 当前路径下的所有文件(包含文件夹)
+			File[] childFiles = file.listFiles();
+			if (null != childFiles) {
+
+				for (File childFile : childFiles) {
+
+					if (childFile.isDirectory()) {
+
+						traverFile(childFile.getAbsolutePath());
+
+					} else {
+						fileList.add(childFile);
+					}
+				}
+			}
+		}
+		return fileList;
+	}
+
 	/**
 	 * 将ASCII表输出到文件
 	 *
 	 * @param path
 	 */
 	public void outputAscII(String path) {
+
+		StringBuilder sb = new StringBuilder();
+
+		// Header
+		String str = "字符\t十进制\t二进制\t十六进制\r\n";
+		sb.append(str);
+
+		// Data:ASCII值范围：[0～127]
+		for (int i = 0; i < 128; i++) {
+			escape(sb, i);
+		}
+		bufferWrite(path, sb.toString());
+	}
+
+	/**
+	 * 特殊字符处理
+	 *
+	 * @param sb
+	 * @param i
+	 * @return
+	 */
+	private StringBuilder escape(StringBuilder sb, int i) {
+
+		switch (i) {
+		case 0:
+			sb.append("null\t" + i + "\t" + Integer.toBinaryString(i) + "\t" + Integer.toHexString(i) + "\r\n");
+			break;
+		case 9:
+			sb.append("\\t\t" + i + "\t" + Integer.toBinaryString(i) + "\t" + Integer.toHexString(i) + "\r\n");
+			break;
+		case 10:
+			sb.append("\\n\t" + i + "\t" + Integer.toBinaryString(i) + "\t" + Integer.toHexString(i) + "\r\n");
+			break;
+		case 11:
+			sb.append("\\v\t" + i + "\t" + Integer.toBinaryString(i) + "\t" + Integer.toHexString(i) + "\r\n");
+			break;
+		case 12:
+			sb.append("\\f\t" + i + "\t" + Integer.toBinaryString(i) + "\t" + Integer.toHexString(i) + "\r\n");
+			break;
+		case 13:
+			sb.append("\\r\t" + i + "\t" + Integer.toBinaryString(i) + "\t" + Integer.toHexString(i) + "\r\n");
+			break;
+		case 32:
+			sb.append("space\t" + i + "\t" + Integer.toBinaryString(i) + "\t" + Integer.toHexString(i) + "\r\n");
+			break;
+		default:
+			sb.append(
+					(char) (i) + "\t" + i + "\t" + Integer.toBinaryString(i) + "\t" + Integer.toHexString(i) + "\r\n");
+		}
+
+		return sb;
+	}
+
+	/**
+	 * 缓存字符流输出到文件
+	 *
+	 * @param path
+	 * @param data
+	 */
+	public void bufferWrite(String path, String data) {
 
 		File file = new File(path);
 
@@ -44,83 +146,23 @@ public class FileIoUtil {
 			// midirs() 创建文件夹，如果父文件夹不存在，则创建父文件夹
 			file.getParentFile().mkdirs();
 		}
+
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
 
-			String str = "字符\t十进制\t二进制\t十六进制\r\n";
-			bw.write(str);
+			bw.write(data);
 
-			// ASCII值范围：[0～127]
-			for (int i = 0; i < 128; i++) {
-
-				switch (i) {
-				case 0:
-					bw.write("null\t" + i + "\t" + Integer.toBinaryString(i) + "\t" + Integer.toHexString(i) + "\r\n");
-					continue;
-				case 9:
-					bw.write("\\t\t" + i + "\t" + Integer.toBinaryString(i) + "\t" + Integer.toHexString(i) + "\r\n");
-					continue;
-				case 10:
-					bw.write("\\n\t" + i + "\t" + Integer.toBinaryString(i) + "\t" + Integer.toHexString(i) + "\r\n");
-				case 11:
-					bw.write("\\v\t" + i + "\t" + Integer.toBinaryString(i) + "\t" + Integer.toHexString(i) + "\r\n");
-					continue;
-				case 12:
-					bw.write("\\f\t" + i + "\t" + Integer.toBinaryString(i) + "\t" + Integer.toHexString(i) + "\r\n");
-					continue;
-				case 13:
-					bw.write("\\r\t" + i + "\t" + Integer.toBinaryString(i) + "\t" + Integer.toHexString(i) + "\r\n");
-					continue;
-				case 32:
-					bw.write("space\t" + i + "\t" + Integer.toBinaryString(i) + "\t" + Integer.toHexString(i) + "\r\n");
-					continue;
-				default:
-					bw.write((char) (i) + "\t" + i + "\t" + Integer.toBinaryString(i) + "\t" + Integer.toHexString(i)
-							+ "\r\n");
-				}
-			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	/**
-	 * 缓存流读取文件
+	 * 缓存字符流读取文件
 	 *
 	 * @param path
 	 * @return
 	 */
-	public List<String[]> bufferRead(String path) {
-
-		File file = new File(path);
-
-		List<String[]> dataList = new ArrayList<>();
-		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-
-			String line = "";
-			while ((line = br.readLine()) != null) {
-				String[] dataArray = line.split("\t");
-				dataList.add(dataArray);
-			}
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return dataList;
-
-	}
-
-	/**
-	 * 缓存流读取文件
-	 *
-	 * @param path
-	 * @return
-	 */
-	public String BufferReadToString(String path) {
+	public String bufferReadToString(String path) {
 
 		File file = new File(path);
 
@@ -140,7 +182,31 @@ public class FileIoUtil {
 	}
 
 	/**
-	 * 将字节输出到文件
+	 * 缓存字符流读取文件
+	 *
+	 * @param path
+	 * @return
+	 */
+	public List<String> bufferReadToList(String path) {
+
+		List<String> resultList = new ArrayList<>();
+
+		File file = new File(path);
+
+		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+			// 一次读一行
+			String line = "";
+			while ((line = br.readLine()) != null) {
+				resultList.add(line);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return resultList;
+	}
+
+	/**
+	 * 字节流输出
 	 *
 	 * @param path
 	 * @param data
@@ -153,8 +219,6 @@ public class FileIoUtil {
 
 			fos.write(data);
 
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -162,7 +226,7 @@ public class FileIoUtil {
 	}
 
 	/**
-	 * 使用字节流读取文件
+	 * 字节流读取
 	 *
 	 * @param path
 	 */
@@ -176,42 +240,18 @@ public class FileIoUtil {
 			// 创建字节数组，其长度就是文件的长度
 			byte[] btRead = new byte[(int) file.length()];
 			// 以字节流的形式读取文件所有内容
-			fis.read(btRead);
+			int count = fis.read(btRead);
+
+			if (count < 0) {
+				return;
+			}
 
 			for (byte btWrite : btRead) {
 				System.out.println(btWrite);
 			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-
-	/**
-	 * 读取key值存放到列表中
-	 *
-	 * @param path
-	 * @return
-	 */
-	public List<String> readKey(String path) {
-
-		List<String> keyList = new ArrayList<>();
-
-		File file = new File(path);
-
-		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-			// 一次读一行
-			String line = "";
-			while ((line = br.readLine()) != null) {
-				keyList.add(line);
-			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return keyList;
 	}
 
 	/**
@@ -239,58 +279,14 @@ public class FileIoUtil {
 				}
 
 				if (isFlg) {
-					System.out.println("有");
+					System.out.println(key + "\t有");
 				} else {
-					System.out.println("無");
+					System.out.println(key + "\t無");
 				}
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-	}
-
-	private static List<File> fileList = new ArrayList<>();
-
-	/**
-	 * 遍历路径下的所有文件
-	 *
-	 * @param path
-	 * @return
-	 */
-	public List<File> traverFile(String path) {
-
-		File file = new File(path);
-
-		// 判断文件是否存在
-		if (!file.exists()) {
-			return fileList;
-		}
-
-		// 判断是否为文件夹
-		if (file.isDirectory()) {
-
-			// 当前路径下的所有文件(包含文件夹)
-			File[] childFiles = file.listFiles();
-			if (null != childFiles) {
-
-				for (File childFile : childFiles) {
-
-					if (childFile.isDirectory()) {
-
-						traverFile(childFile.getAbsolutePath());
-
-					} else {
-						fileList.add(childFile);
-					}
-				}
-			}
-		} else {
-			fileList.add(file);
-		}
-
-		return fileList;
 	}
 
 	/**
@@ -299,15 +295,11 @@ public class FileIoUtil {
 	 * @param obj
 	 * @param filename
 	 */
-	public synchronized void serialize(Object obj, String fileName) {
+	public synchronized void serialize(Object obj, String path) {
 
-		File file = new File(fileName);
+		File file = new File(path);
 		if (!file.exists()) {
-			try {
-				file.createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			file.getParentFile().mkdirs();
 		}
 
 		// 数据写入
@@ -321,12 +313,12 @@ public class FileIoUtil {
 	/**
 	 * 反序列化文件
 	 *
-	 * @param fileName
+	 * @param path
 	 * @return Object
 	 */
-	public synchronized Object deSerialize(String fileName) {
+	public synchronized Object deSerialize(String path) {
 
-		File file = new File(fileName);
+		File file = new File(path);
 		Object obj = null;
 
 		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));) {
@@ -339,25 +331,53 @@ public class FileIoUtil {
 	}
 
 	/**
+	 * XMLStreamReader（StAX）
+	 *
+	 * @param path
+	 */
+	public void readXmlByXmlFactory(String path) {
+
+		XMLInputFactory factory = XMLInputFactory.newInstance();
+
+		factory.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, Boolean.FALSE);
+		factory.setProperty(XMLInputFactory.SUPPORT_DTD, Boolean.FALSE);
+
+		try (FileInputStream fis = new FileInputStream(path)) {
+			// Load XML stream
+			XMLStreamReader xmlStreamReader = factory.createXMLStreamReader(fis);
+			while (xmlStreamReader.hasNext()) {
+
+				final int event = xmlStreamReader.next();
+				if (event == XMLStreamReader.START_ELEMENT) {
+					System.out.println(xmlStreamReader.getLocalName());
+				}
+			}
+		} catch (XMLStreamException | IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
 	 * DOM方式读取XML
 	 *
-	 * @param fileName
+	 * @param path
 	 * @return
 	 */
-	public void readXmlForDom(String fileName) {
+	public void readXmlByDom(String path) {
 
 		System.out.println("DOM解析XML開始");
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+
 		try {
 			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document doc = builder.parse(fileName);
-
+			Document doc = builder.parse(path);
+			NodeList nList = doc.getDocumentElement().getChildNodes();
+			node(nList);
 			NodeList sList = doc.getElementsByTagName("student");
 			node(sList);
+			System.out.println("DOM解析XML結束");
 		} catch (ParserConfigurationException | SAXException | IOException e) {
 			e.printStackTrace();
-		} finally {
-			System.out.println("DOM解析XML結束");
 		}
 	}
 
@@ -366,7 +386,7 @@ public class FileIoUtil {
 	 *
 	 * @param list
 	 */
-	public static void node(NodeList list) {
+	private static void node(NodeList list) {
 		for (int i = 0; i < list.getLength(); i++) {
 			// 也可以使用Element
 			Node node = list.item(i);
@@ -383,20 +403,20 @@ public class FileIoUtil {
 	/**
 	 * SAX方式读取XML
 	 *
-	 * @param fileName
+	 * @param path
 	 * @return
 	 */
-	public void readXmlForSAX(String fileName) {
+	public void readXmlBySAX(String path) {
 
 		// 创建Handel对象
-		SAXDemoHandel handel = new SAXDemoHandel();
+		SAXDemoHandler handel = new SAXDemoHandler();
 		// 获取SAXParserFactory实例
 		SAXParserFactory factory = SAXParserFactory.newInstance();
 		try {
 			// 获取SAXparser实例
 			SAXParser saxParser = factory.newSAXParser();
 
-			saxParser.parse(fileName, handel);
+			saxParser.parse(path, handel);
 		} catch (ParserConfigurationException | SAXException | IOException e) {
 			e.printStackTrace();
 		}
@@ -404,55 +424,42 @@ public class FileIoUtil {
 	}
 
 	/**
-	 * SAX
+	 * SAXDemoHandler
 	 *
 	 * @author huiweilong
 	 *
 	 */
-	class SAXDemoHandel extends DefaultHandler {
+	class SAXDemoHandler extends DefaultHandler {
 
 		// 遍历xml文件开始标签
 		@Override
 		public void startDocument() throws SAXException {
-			super.startDocument();
 			System.out.println("sax解析开始");
 		}
 
 		// 遍历xml文件结束标签
 		@Override
 		public void endDocument() throws SAXException {
-			super.endDocument();
 			System.out.println("sax解析结束");
 		}
 
 		@Override
 		public void startElement(String uri, String localName, String qName, Attributes attributes)
 				throws SAXException {
-			super.startElement(uri, localName, qName, attributes);
-			if (qName.equals("student")) {
-				System.out.println("============开始遍历student=============");
-			} else if (!qName.equals("student") && !qName.equals("class")) {
-				System.out.print("节点名称:" + qName + "----");
-			}
+			System.out.print("<" + qName + ">");
 		}
 
 		@Override
 		public void endElement(String uri, String localName, String qName) throws SAXException {
-			super.endElement(uri, localName, qName);
-			if (qName.equals("student")) {
-				System.out.println(qName + "遍历结束");
-				System.out.println("============结束遍历student=============");
-			}
+			System.out.println("</" + qName + ">");
 		}
 
 		@Override
 		public void characters(char[] ch, int start, int length) throws SAXException {
-			super.characters(ch, start, length);
 			String value = new String(ch, start, length).trim();
-			if (!value.equals("")) {
-				System.out.println(value);
+			if (!value.equals("\n")) {
+				System.out.print(value);
 			}
 		}
 	}
-
 }

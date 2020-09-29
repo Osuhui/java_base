@@ -9,7 +9,7 @@ import base.utils.FileIoUtil;
 
 class FileIoTest {
 
-	FileIoUtil fileIoApi = new FileIoUtil();
+	FileIoUtil fileIoUtil = new FileIoUtil();
 
 	@Test
 	void test00() {
@@ -36,85 +36,80 @@ class FileIoTest {
 	@Test
 	void test01() {
 
-		// 读取key值
-		String path = "resources/files/key.txt";
-		List<String> keyList = fileIoApi.readKey(path);
-		System.out.println(keyList);
-
-	}
-
-	@Test
-	void test02() {
-
 		// 遍历文件
-		String path = "src/aa";
-		List<File> files = fileIoApi.traverFile(path);
+		String path = "resources/";
+		List<File> files = fileIoUtil.traverFile(path);
 
 		System.out.println("文件数量：" + files.size());
 		for (File file : files) {
 			System.out.println("文件：" + file);
 		}
+	}
 
+	@Test
+	void test02() {
+
+		String path = "resources/files/txt/asciiFile.txt";
+
+		// 缓存流文件写入 输出ASCII表
+		fileIoUtil.outputAscII(path);
+
+		// 缓存流文件读取
+		fileIoUtil.bufferReadToList(path).forEach(System.out::println);
 	}
 
 	@Test
 	void test03() {
 
 		// 字节流文件读写
-		String path = "resources/files/byteFile.txt";
+		String path = "resources/files/txt/byteFile.txt";
 		byte[] data = { 100, 10, 20 };
-		fileIoApi.byteWrite(path, data);
-		fileIoApi.byteRead(path);
-
+		fileIoUtil.byteWrite(path, data);
+		fileIoUtil.byteRead(path);
 	}
 
 	@Test
 	void test04() {
 
-		// 缓存流文件读写 输出ASCII表
-		String path = "resources/files/asciiFile.txt";
+		String keyPath = "resources/files/txt/key.txt";
+		String filePath = "resources/files/txt/file.txt";
 
-		fileIoApi.outputAscII(path);
-		List<String[]> dataList = fileIoApi.bufferRead(path);
+		// 读取key值
+		List<String> keyList = fileIoUtil.bufferReadToList(keyPath);
 
-		for (String[] dataArray : dataList) {
-
-			for (int i = 0; i < dataArray.length; i++) {
-
-				if (i % dataArray.length == 0) {
-					System.out.println();
-				}
-				System.out.print("\t" + dataArray[i]);
-			}
-		}
+		// 在指定文件中查找key
+		fileIoUtil.findKeyFromFile(keyList, filePath);
 	}
 
 	@Test
 	void test05() {
 
-		String fileName = "resources/files/serialize";
-		String obj = "123\n456";
+		String readPath = "resources/files/txt/asciiFile.txt";
+		String path = "resources/files/serialize";
 
 		// 序列化输出
-		fileIoApi.serialize(obj, fileName);
+		fileIoUtil.serialize(fileIoUtil.bufferReadToList(readPath), path);
 
 		// 反序列化读取
-		Object resultObj = fileIoApi.deSerialize(fileName);
-		System.out.println(resultObj);
+		Object result = fileIoUtil.deSerialize(path);
+		System.out.println(result);
 	}
 
 	@Test
 	void test06() {
 
-		String fileName = "resources/files/demo.xml";
+		String path = "resources/files/xml/demo.xml";
 
-		System.out.println(fileIoApi.BufferReadToString(fileName));
+		System.out.println(fileIoUtil.bufferReadToString(path));
 
 		// DOM方式读取XML
-		fileIoApi.readXmlForDom(fileName);
+		fileIoUtil.readXmlByDom(path);
 
 		// SAX方式读取XML
-		fileIoApi.readXmlForSAX(fileName);
+		fileIoUtil.readXmlBySAX(path);
+
+		// XMLStreamReader(StAX)
+		fileIoUtil.readXmlByXmlFactory(path);
 	}
 
 }
