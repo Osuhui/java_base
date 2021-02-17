@@ -40,7 +40,7 @@ public class ScannerUtil {
 	/**
 	 * 输入一组数字
 	 *
-	 * @return
+	 * @return Object[]
 	 */
 	public Object[] scanInt() {
 
@@ -55,7 +55,7 @@ public class ScannerUtil {
 
 	/**
 	 * 输入一个字符串数组
-	 * @return
+	 * @return String[]
 	 */
 	public String[] scanStr() {
 

@@ -17,9 +17,9 @@ import base.utils.ZipUtil;
  */
 public class ZipTest {
 
-	private ZipFileUtil zipFileApi = new ZipFileUtil();
+	private final ZipFileUtil zipFileApi = new ZipFileUtil();
 
-	private ZipUtil ZipUtils = new ZipUtil();
+	private final ZipUtil ZipUtils = new ZipUtil();
 
 	@Test
 	public void test01() {
@@ -34,8 +34,8 @@ public class ZipTest {
 
 		String filePath = "resources/files";
 		try {
-			FileOutputStream fos1 = new FileOutputStream(new File("resources/files.zip"));
-			/** 测试压缩方法1 */
+			FileOutputStream fos1 = new FileOutputStream("resources/files.zip");
+			// 测试压缩方法1
 			ZipUtils.toZip(filePath, fos1, true);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

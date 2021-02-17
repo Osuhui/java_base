@@ -1,27 +1,5 @@
 package base.utils;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -29,15 +7,23 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import javax.xml.parsers.*;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+
 public class FileIoUtil {
 
-	private static List<File> fileList = new ArrayList<>();
+	private static final List<File> fileList = new ArrayList<>();
 
 	/**
 	 * 遍历路径下的所有文件
 	 *
-	 * @param path
-	 * @return
+	 * @param path 路径
+	 * @return List<File>
 	 */
 	public List<File> traverFile(String path) {
 
@@ -74,7 +60,7 @@ public class FileIoUtil {
 	/**
 	 * 将ASCII表输出到文件
 	 *
-	 * @param path
+	 * @param path 路径
 	 */
 	public void outputAscII(String path) {
 
@@ -94,9 +80,9 @@ public class FileIoUtil {
 	/**
 	 * 特殊字符处理
 	 *
-	 * @param sb
-	 * @param i
-	 * @return
+	 * @param sb 字符
+	 * @param i 下标
+	 * @return StringBuilder
 	 */
 	private StringBuilder escape(StringBuilder sb, int i) {
 
@@ -133,8 +119,8 @@ public class FileIoUtil {
 	/**
 	 * 缓存字符流输出到文件
 	 *
-	 * @param path
-	 * @param data
+	 * @param path 路径
+	 * @param data 数据
 	 */
 	public void bufferWrite(String path, String data) {
 
@@ -159,8 +145,8 @@ public class FileIoUtil {
 	/**
 	 * 缓存字符流读取文件
 	 *
-	 * @param path
-	 * @return
+	 * @param path 路径
+	 * @return String
 	 */
 	public String bufferReadToString(String path) {
 
@@ -184,8 +170,8 @@ public class FileIoUtil {
 	/**
 	 * 缓存字符流读取文件
 	 *
-	 * @param path
-	 * @return
+	 * @param path 路径
+	 * @return List<String>
 	 */
 	public List<String> bufferReadToList(String path) {
 
@@ -208,8 +194,8 @@ public class FileIoUtil {
 	/**
 	 * 字节流输出
 	 *
-	 * @param path
-	 * @param data
+	 * @param path 路径
+	 * @param data 数据
 	 */
 	public void byteWrite(String path, byte[] data) {
 
@@ -228,7 +214,7 @@ public class FileIoUtil {
 	/**
 	 * 字节流读取
 	 *
-	 * @param path
+	 * @param path 路径
 	 */
 	public void byteRead(String path) {
 
@@ -257,8 +243,8 @@ public class FileIoUtil {
 	/**
 	 * 在指定文件中查找key
 	 *
-	 * @param keyList
-	 * @param filePath
+	 * @param keyList 检索key
+	 * @param filePath 路径
 	 */
 	public void findKeyFromFile(List<String> keyList, String filePath) {
 
@@ -269,7 +255,7 @@ public class FileIoUtil {
 			String line = "";
 			boolean isFlg = false;
 
-			try (BufferedReader br = new BufferedReader(new FileReader(file));) {
+			try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 
 				while ((line = br.readLine()) != null) {
 					if (line.contains(key)) {
@@ -292,8 +278,8 @@ public class FileIoUtil {
 	/**
 	 * 序列化文件
 	 *
-	 * @param obj
-	 * @param filename
+	 * @param obj 对象
+	 * @param path 路径
 	 */
 	public synchronized void serialize(Object obj, String path) {
 
@@ -303,7 +289,7 @@ public class FileIoUtil {
 		}
 
 		// 数据写入
-		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));) {
+		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file))) {
 			oos.writeObject(obj);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -313,15 +299,15 @@ public class FileIoUtil {
 	/**
 	 * 反序列化文件
 	 *
-	 * @param path
-	 * @return Object
+	 * @param path 路径
+	 * @return Object Object
 	 */
 	public synchronized Object deSerialize(String path) {
 
 		File file = new File(path);
 		Object obj = null;
 
-		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));) {
+		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
 			// 数据作为对象读取
 			obj = ois.readObject();
 		} catch (IOException | ClassNotFoundException e) {
@@ -333,7 +319,7 @@ public class FileIoUtil {
 	/**
 	 * XMLStreamReader（StAX）
 	 *
-	 * @param path
+	 * @param path 路径
 	 */
 	public void readXmlByXmlFactory(String path) {
 
@@ -360,8 +346,7 @@ public class FileIoUtil {
 	/**
 	 * DOM方式读取XML
 	 *
-	 * @param path
-	 * @return
+	 * @param path 路径
 	 */
 	public void readXmlByDom(String path) {
 
@@ -384,7 +369,7 @@ public class FileIoUtil {
 	/**
 	 * 获取节点
 	 *
-	 * @param list
+	 * @param list 节点
 	 */
 	private static void node(NodeList list) {
 		for (int i = 0; i < list.getLength(); i++) {
@@ -403,8 +388,7 @@ public class FileIoUtil {
 	/**
 	 * SAX方式读取XML
 	 *
-	 * @param path
-	 * @return
+	 * @param path 路径
 	 */
 	public void readXmlBySAX(String path) {
 
@@ -429,7 +413,7 @@ public class FileIoUtil {
 	 * @author huiweilong
 	 *
 	 */
-	class SAXDemoHandler extends DefaultHandler {
+	static class SAXDemoHandler extends DefaultHandler {
 
 		// 遍历xml文件开始标签
 		@Override

@@ -1,20 +1,8 @@
 package base.utils;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.Enumeration;
-import java.util.zip.CRC32;
-import java.util.zip.CheckedOutputStream;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
-import java.util.zip.ZipOutputStream;
+import java.util.zip.*;
 
 public class ZipFileUtil {
 
@@ -45,10 +33,8 @@ public class ZipFileUtil {
 				// 检查输出流,采用CRC32算法，保证文件的一致性
 				CheckedOutputStream checkedOutputStream = new CheckedOutputStream(outputStream, new CRC32());
 				// 创建zip文件的输出流
-				ZipOutputStream zipOutputStream = new ZipOutputStream(checkedOutputStream);) {
+				ZipOutputStream zipOutputStream = new ZipOutputStream(checkedOutputStream)) {
 			compress(file, zipOutputStream, file.getName());
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -57,7 +43,7 @@ public class ZipFileUtil {
 	/**
 	 * 压缩名默认为源文件名
 	 *
-	 * @param filePath
+	 * @param filePath 路径
 	 */
 	public void zipCreate(String filePath) {
 		File file = new File(filePath);
@@ -68,10 +54,10 @@ public class ZipFileUtil {
 	/**
 	 * 向压缩文件中输入
 	 *
-	 * @param file
-	 * @param zipOutputStream
-	 * @param directory
-	 * @throws IOException
+	 * @param file 文件
+	 * @param zipOutputStream 输出流
+	 * @param directory 路径
+	 * @throws IOException IO例外
 	 */
 	private void compress(File file, ZipOutputStream zipOutputStream, String directory) throws IOException {
 		if (file.isDirectory()) {
@@ -94,11 +80,11 @@ public class ZipFileUtil {
 	/**
 	 * 解压
 	 *
-	 * @param zipPath
-	 * @param filePath
+	 * @param zipPath zip路径
+	 * @param filePath 文件路径
 	 */
 	public void deCompress(String zipPath, String filePath) {
-		try (ZipFile zipFile = new ZipFile(zipPath);) {
+		try (ZipFile zipFile = new ZipFile(zipPath)) {
 			for (Enumeration<?> enumeration = zipFile.entries(); enumeration.hasMoreElements();) {
 				// 获取zip中的元素
 				ZipEntry zipEntry = (ZipEntry) enumeration.nextElement();

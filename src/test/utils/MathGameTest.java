@@ -1,8 +1,7 @@
 package test.utils;
 
-import org.junit.Test;
-
 import base.utils.MathGameUtil;
+import org.junit.Test;
 
 /**
  *

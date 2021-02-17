@@ -118,7 +118,7 @@ public class ZipUtil {
 	 *
 	 *                         false:所有文件跑到压缩包根目录下(注意：不保留目录结构可能会出现同名文件,会压缩失败)
 	 *
-	 * @throws Exception
+	 * @throws Exception 例外
 	 *
 	 */
 

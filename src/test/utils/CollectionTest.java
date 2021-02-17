@@ -1,34 +1,28 @@
 package test.utils;
 
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Vector;
-
 import org.junit.jupiter.api.Test;
+
+import java.util.*;
 
 class CollectionTest {
 
 	@Test
 	void testList() {
 		List<String> objList = new ArrayList<>();
-		List<String> stList = new ArrayList<>();
 
 		for (int i = 1; i <= 10; i++) {
 			objList.add("obj" + i);
 		}
 
-		stList.addAll(objList);
+		List<String> stList = new ArrayList<>(objList);
 
 		// Lambda
 		stList.forEach((x) -> System.out.printf("%s\t", x));
 		System.out.println();
 
-		// 迭代器
-		Iterator<String> it = stList.iterator();
-		while (it.hasNext()) {
-			System.out.printf("%s\t", it.next());
+		// 循环
+		for (String s : stList) {
+			System.out.printf("%s\t", s);
 		}
 		System.out.println();
 	}
