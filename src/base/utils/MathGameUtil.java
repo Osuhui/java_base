@@ -1,7 +1,3 @@
-/**
- * Copyright (c) 2019 RECRUIT Co.,Ltd. All Rights Reserved.
- * システム名     : じゃらんnetシステム
- */
 package base.utils;
 
 /**
@@ -31,35 +27,23 @@ public class MathGameUtil {
 
 		System.out.printf("对%d内的素数进行输出：\n", num);
 		for (int i = 1; i <= num; i++) {
-
 			// 当i为100的倍数是换行
 			if (i % 100 == 0) {
 				System.out.println();
 			}
-
 			Boolean flg = false;
-
 			if (i % 2 == 1) {
-
 				for (int j = i / 2; j > 1; j--) {
-
 					if (i % j == 0) {
 						flg = true;
 					}
 				}
-
 				if (flg) {
-
 					continue;
-
 				} else {
-
 					System.out.printf("%d\t", i);
-
 				}
-
 			}
-
 		}
 	}
 
@@ -89,8 +73,8 @@ public class MathGameUtil {
 	 * 分母和分子 取值范围在[1-20]
 	 */
 	public void goldPoint() {
-		System.out.println("\n1-20之间相除最接近黄金分割点的两个整数");
 
+		System.out.println("\n1-20之间相除最接近黄金分割点的两个整数");
 		final double GOLDPOINT = 0.618;
 		int x = 0;
 		int y = 0;
@@ -98,7 +82,6 @@ public class MathGameUtil {
 
 		for (int i = 1; i <= 20; i++) {
 			for (int j = 20; j > i; j--) {
-
 				if (i % 2 == 0 && j % 2 == 0) {
 					continue;
 				}
@@ -128,10 +111,8 @@ public class MathGameUtil {
 			if (a1 + a2 + a3 == i) {
 				System.out.print(i + "\t");
 			}
-
 		}
 		System.out.println();
-
 	}
 
 	/**
@@ -152,7 +133,6 @@ public class MathGameUtil {
 				System.out.printf("a1=%d\ta2=%d\ta3=%d\ta4=%d\n", a1, a2, a3, a4);
 			}
 		}
-
 	}
 
 }

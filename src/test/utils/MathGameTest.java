@@ -1,7 +1,3 @@
-/**
- * Copyright (c) 2019 RECRUIT Co.,Ltd. All Rights Reserved.
- * システム名     : じゃらんnetシステム
- */
 package test.utils;
 
 import org.junit.Test;
@@ -9,11 +5,11 @@ import org.junit.Test;
 import base.utils.MathGameUtil;
 
 /**
- * 
+ *
  * @author huiweilong
  * @since 2019/05/24
- * 
- * 
+ *
+ *
  */
 public class MathGameTest {
 

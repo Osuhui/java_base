@@ -1,7 +1,3 @@
-/**
- * Copyright (c) 2019 RECRUIT Co.,Ltd. All Rights Reserved.
- * システム名     : じゃらんnetシステム
- */
 package test.utils;
 
 import java.io.File;

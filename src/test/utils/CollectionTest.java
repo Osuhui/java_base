@@ -16,7 +16,6 @@ class CollectionTest {
 		List<String> stList = new ArrayList<>();
 
 		for (int i = 1; i <= 10; i++) {
-
 			objList.add("obj" + i);
 		}
 
@@ -40,13 +39,11 @@ class CollectionTest {
 		Vector<String> vector = new Vector<>();
 
 		for (int i = 1; i <= 10; i++) {
-
 			vector.add("vec" + i);
 		}
 
 		em = vector.elements();
 		while (em.hasMoreElements()) {
-
 			System.out.println(em.nextElement());
 		}
 	}
