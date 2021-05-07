@@ -1,7 +1,7 @@
 package test.utils;
 
 import base.utils.ThreadUtil;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class ThreadTest {
 
@@ -22,11 +22,17 @@ public class ThreadTest {
             new Thread(() -> System.out.println("线程b")).start();
         }
     }
+
     @Test
     public void test01() {
         ThreadUtil threadUtil = new ThreadUtil();
-        new Thread(threadUtil,"a1").start();
-        new Thread(threadUtil,"a2").start();
-        new Thread(threadUtil,"a3").start();
+        new Thread(threadUtil, "a1").start();
+        new Thread(threadUtil, "a2").start();
+        new Thread(threadUtil, "a3").start();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
