@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="Oracle - @localhost">
+  <database-model serializer="dbm" dbms="ORACLE" family-id="ORACLE" format-version="4.20">
+    <root id="1">
+      <ServerVersion>11.2.0.1.0</ServerVersion>
+    </root>
+    <schema id="2" parent="1" name="ANONYMOUS">
+      <ObjectId>46</ObjectId>
+    </schema>
+    <schema id="3" parent="1" name="APEX_030200">
+      <ObjectId>78</ObjectId>
+    </schema>
+    <schema id="4" parent="1" name="APEX_PUBLIC_USER">
+      <ObjectId>76</ObjectId>
+    </schema>
+    <schema id="5" parent="1" name="APPQOSSYS">
+      <ObjectId>31</ObjectId>
+    </schema>
+    <schema id="6" parent="1" name="CTXSYS">
+      <ObjectId>43</ObjectId>
+    </schema>
+    <schema id="7" parent="1" name="DBSNMP">
+      <ObjectId>30</ObjectId>
+    </schema>
+    <schema id="8" parent="1" name="DIP">
+      <ObjectId>14</ObjectId>
+    </schema>
+    <schema id="9" parent="1" name="EXFSYS">
+      <ObjectId>42</ObjectId>
+    </schema>
+    <schema id="10" parent="1" name="FLOWS_FILES">
+      <ObjectId>75</ObjectId>
+    </schema>
+    <schema id="11" parent="1" name="MDDATA">
+      <ObjectId>65</ObjectId>
+    </schema>
+    <schema id="12" parent="1" name="MDSYS">
+      <ObjectId>57</ObjectId>
+    </schema>
+    <schema id="13" parent="1" name="MGMT_VIEW">
+      <ObjectId>74</ObjectId>
+    </schema>
+    <schema id="14" parent="1" name="OLAPSYS">
+      <ObjectId>61</ObjectId>
+    </schema>
+    <schema id="15" parent="1" name="ORACLE_OCM">
+      <ObjectId>21</ObjectId>
+    </schema>
+    <schema id="16" parent="1" name="ORDDATA">
+      <ObjectId>54</ObjectId>
+    </schema>
+    <schema id="17" parent="1" name="ORDPLUGINS">
+      <ObjectId>55</ObjectId>
+    </schema>
+    <schema id="18" parent="1" name="ORDSYS">
+      <ObjectId>53</ObjectId>
+    </schema>
+    <schema id="19" parent="1" name="OUTLN">
+      <ObjectId>9</ObjectId>
+    </schema>
+    <schema id="20" parent="1" name="OWBSYS">
+      <ObjectId>79</ObjectId>
+    </schema>
+    <schema id="21" parent="1" name="OWBSYS_AUDIT">
+      <ObjectId>83</ObjectId>
+    </schema>
+    <schema id="22" parent="1" name="PUBLIC">
+      <ObjectId>1</ObjectId>
+      <CreatedTimestamp>2010-03-30.18:07:50</CreatedTimestamp>
+      <ModifiedTimestamp>2019-05-11.17:40:00</ModifiedTimestamp>
+      <IntrospectionVersion>200820</IntrospectionVersion>
+      <IntrospectionTimestamp>2021-02-27.17:15:40</IntrospectionTimestamp>
+    </schema>
+    <schema id="23" parent="1" name="SCOTT">
+      <ObjectId>84</ObjectId>
+    </schema>
+    <schema id="24" parent="1" name="SI_INFORMTN_SCHEMA">
+      <ObjectId>56</ObjectId>
+    </schema>
+    <schema id="25" parent="1" name="SPATIAL_CSW_ADMIN_USR">
+      <ObjectId>70</ObjectId>
+    </schema>
+    <schema id="26" parent="1" name="SPATIAL_WFS_ADMIN_USR">
+      <ObjectId>67</ObjectId>
+    </schema>
+    <schema id="27" parent="1" name="SYS">
+      <ObjectId>0</ObjectId>
+    </schema>
+    <schema id="28" parent="1" name="SYSMAN">
+      <ObjectId>72</ObjectId>
+    </schema>
+    <schema id="29" parent="1" name="SYSTEM">
+      <ObjectId>5</ObjectId>
+    </schema>
+    <schema id="30" parent="1" name="TESTER">
+      <ObjectId>85</ObjectId>
+      <CreatedTimestamp>2019-08-16.03:13:48</CreatedTimestamp>
+      <ModifiedTimestamp>2019-09-19.04:26:48</ModifiedTimestamp>
+      <IntrospectionVersion>200820</IntrospectionVersion>
+      <IntrospectionTimestamp>2021-02-27.17:15:26</IntrospectionTimestamp>
+      <CommentsHash>150113474394</CommentsHash>
+      <Current>1</Current>
+    </schema>
+    <schema id="31" parent="1" name="WMSYS">
+      <ObjectId>32</ObjectId>
+    </schema>
+    <schema id="32" parent="1" name="XDB">
+      <ObjectId>45</ObjectId>
+    </schema>
+    <schema id="33" parent="1" name="XS$NULL">
+      <ObjectId>2147483638</ObjectId>
+    </schema>
+    <user id="34" parent="1" name="ANONYMOUS">
+      <ObjectId>46</ObjectId>
+    </user>
+    <user id="35" parent="1" name="APEX_030200">
+      <ObjectId>78</ObjectId>
+    </user>
+    <user id="36" parent="1" name="APEX_PUBLIC_USER">
+      <ObjectId>76</ObjectId>
+    </user>
+    <user id="37" parent="1" name="APPQOSSYS">
+      <ObjectId>31</ObjectId>
+    </user>
+    <user id="38" parent="1" name="CTXSYS">
+      <ObjectId>43</ObjectId>
+    </user>
+    <user id="39" parent="1" name="DBSNMP">
+      <ObjectId>30</ObjectId>
+    </user>
+    <user id="40" parent="1" name="DIP">
+      <ObjectId>14</ObjectId>
+    </user>
+    <user id="41" parent="1" name="EXFSYS">
+      <ObjectId>42</ObjectId>
+    </user>
+    <user id="42" parent="1" name="FLOWS_FILES">
+      <ObjectId>75</ObjectId>
+    </user>
+    <user id="43" parent="1" name="MDDATA">
+      <ObjectId>65</ObjectId>
+    </user>
+    <user id="44" parent="1" name="MDSYS">
+      <ObjectId>57</ObjectId>
+    </user>
+    <user id="45" parent="1" name="MGMT_VIEW">
+      <ObjectId>74</ObjectId>
+    </user>
+    <user id="46" parent="1" name="OLAPSYS">
+      <ObjectId>61</ObjectId>
+    </user>
+    <user id="47" parent="1" name="ORACLE_OCM">
+      <ObjectId>21</ObjectId>
+    </user>
+    <user id="48" parent="1" name="ORDDATA">
+      <ObjectId>54</ObjectId>
+    </user>
+    <user id="49" parent="1" name="ORDPLUGINS">
+      <ObjectId>55</ObjectId>
+    </user>
+    <user id="50" parent="1" name="ORDSYS">
+      <ObjectId>53</ObjectId>
+    </user>
+    <user id="51" parent="1" name="OUTLN">
+      <ObjectId>9</ObjectId>
+    </user>
+    <user id="52" parent="1" name="OWBSYS">
+      <ObjectId>79</ObjectId>
+    </user>
+    <user id="53" parent="1" name="OWBSYS_AUDIT">
+      <ObjectId>83</ObjectId>
+    </user>
+    <user id="54" parent="1" name="SCOTT">
+      <ObjectId>84</ObjectId>
+    </user>
+    <user id="55" parent="1" name="SI_INFORMTN_SCHEMA">
+      <ObjectId>56</ObjectId>
+    </user>
+    <user id="56" parent="1" name="SPATIAL_CSW_ADMIN_USR">
+      <ObjectId>70</ObjectId>
+    </user>
+    <user id="57" parent="1" name="SPATIAL_WFS_ADMIN_USR">
+      <ObjectId>67</ObjectId>
+    </user>
+    <user id="58" parent="1" name="SYS">
+      <ObjectId>0</ObjectId>
+    </user>
+    <user id="59" parent="1" name="SYSMAN">
+      <ObjectId>72</ObjectId>
+    </user>
+    <user id="60" parent="1" name="SYSTEM">
+      <ObjectId>5</ObjectId>
+    </user>
+    <user id="61" parent="1" name="TESTER">
+      <ObjectId>85</ObjectId>
+    </user>
+    <user id="62" parent="1" name="WMSYS">
+      <ObjectId>32</ObjectId>
+    </user>
+    <user id="63" parent="1" name="XDB">
+      <ObjectId>45</ObjectId>
+    </user>
+    <user id="64" parent="1" name="XS$NULL">
+      <ObjectId>2147483638</ObjectId>
+    </user>
+  </database-model>
+</dataSource>
